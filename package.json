@@ -1,0 +1,22 @@
+{
+  "name": "playstore-api",
+  "version": "1.0.0",
+
+  "main": "index.js",
+  "repository": "github.com/tendadigital/playstore-cli",
+  "author": "Ivan Seidel <ivan@tenda.digital>",
+  "license": "MIT",
+
+  "dependencies": {
+    "axios": "^0.17.0",
+    "draftlog-session": "^1.0.1",
+    "image-size": "^0.6.1",
+    "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
+    "mustache": "^2.3.0",
+    "puppeteer": "^0.12.0"
+  },
+  "bin": {
+    "playstore": "./cli/index.js"
+  }
+}
