@@ -14,21 +14,33 @@ const getFiles = source =>
 
 
 module.exports = async (pathOrJson) => {
-  // if (!fs.existsSync(metadata)) {
-  //   throw new Error('Metadata folder does not exists: ' + folder)
-  // }
-
-  if (!pathOrJson) {
-    pathOrJson = path.join(process.cwd(), 'metadata/android')
-    console.log(chalk.yellow('No metadata provided, using:'), chalk.green(pathOrJson))
-  }
-
   // Try loading as a path
-  let metadata = {}
+  let metadata = null
 
-  if (fs.existsSync(pathOrJson)) {
+  try {
+    metadata = JSON.parse(pathOrJson)
+  } catch (e) {}
+
+  if (!metadata) {
+    if (!pathOrJson) {
+      pathOrJson = path.join(process.cwd(), 'metadata/android')
+      console.log(chalk.yellow('No metadata provided, using:'), chalk.green(pathOrJson))
+    }
+
+    // Join path to Cwd if not absolute
+    if (!path.isAbsolute(pathOrJson)) {
+      pathOrJson = path.join(process.cwd(), pathOrJson)
+    }
+
+    // Try loading as path
+    if (!fs.existsSync(pathOrJson)){
+      throw new Error('Path does not exists: ' + pathOrJson)
+    }
+
+    // Builds metadata
+    metadata = {}
+    
     let rootDir = pathOrJson
-
     let languagesPath = getDirectories(rootDir)
     
     for (let dir of languagesPath) {
@@ -58,13 +70,10 @@ module.exports = async (pathOrJson) => {
     }
 
     metadata.apk = await loadFilePathByMatch(rootDir, '*.apk', null)
+  }
 
-  } else {
-    try {
-      pathOrJson = JSON.parse(pathOrJson)
-    } catch (e) {
-      return null
-    }
+  if (!metadata) {
+    throw new Error('No valid metadata provided')
   }
 
   // Validate
