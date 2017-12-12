@@ -38,7 +38,7 @@ module.exports = class PlayApi {
     this.browser = config.browser
     this.page = config.page || await this.browser.newPage()
 
-    console.log(this.tag, 'Logging In with', chalk.green(this.config.email))
+    !this.config.silent && console.log(this.tag, 'Logging In with', chalk.green(this.config.email))
     await this.login({ email: this.config.email, password: this.config.password })
 
     // Create axios instance
@@ -57,7 +57,7 @@ module.exports = class PlayApi {
   /*
    * Login to Play Console using credentials, try reusing cookies to improve speed
    */
-  async login({email, password}) {
+  async login({email, password}, silent) {
     await executor.run('Login', {
       email,
       password,
@@ -82,7 +82,7 @@ module.exports = class PlayApi {
     this.cookies = cookies.map(c => `${c.name}=${c.value}`).join('; ')
     
     // Load Xsrf
-    console.log(this.tag, 'Confirming Login (xsrf token)')
+    !this.config.silent && console.log(this.tag, 'Confirming Login (xsrf token)')
     this.xsrf = await GetXsrf(this.cookies)
   }
 
@@ -108,6 +108,28 @@ module.exports = class PlayApi {
     let apps = await this.getApps()
 
     return _.find(apps, {package_name}) || null
+  }
+
+    /*
+   * Load version code from 
+   */
+  async getAppVersionName(package_name, track) {
+    let res = await this.axios.post('/apps/publish/appreleases', {
+      method: 'getReleaseTracksSummary',
+      params: JSON.stringify({'1': package_name }),
+      xsrf: this.xsrf,
+    })
+
+    track = {
+      'prod' : '0',
+      'beta' : '1',
+      'alpha': '2',
+    }[track] || '0'
+
+    this.assertResponseError(res.data, `App '${package_name}' could not be found`)
+
+    let resp = _.get(res.data.result, `1.${track}.5.1.1`)
+    return resp
   }
 
   /*
@@ -216,7 +238,7 @@ module.exports = class PlayApi {
       console.error(e)
       console.error(tag, chalk.red('failed'), e.message)
       await this.crashReport(e, {app, metadata})
-      return false
+      throw e
     }
     return true
   }

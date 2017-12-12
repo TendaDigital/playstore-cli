@@ -8,6 +8,9 @@ const PlayApi = require('../')
 const MetadataLoader = require('../helpers/MetadataLoader')
 
 module.exports = async (opts) => {
+  let pkg = opts._[1]
+  if ( !pkg ) return new Error('No package provided. Use', chalk.white('playstore app-version <package_name>'))
+
   // Gatter options from cli
   let options = {
     // Metadata
@@ -27,7 +30,13 @@ module.exports = async (opts) => {
   let play = new PlayApi(options)
   await play.init()
 
-  let app = await play.removeDrafts()
+  let version = await play.getAppVersionName(pkg, opts.track || 'prod')
+
+  if (opts.silent) {
+    console.log(version)
+  } else {
+    console.log('Version:', version, `[${opts.track || 'prod'}]`)
+  }
 
   await browser.close()
 }

@@ -17,6 +17,7 @@ async function run() {
     console.log(chalk.cyan('   --password <password>  '), chalk.dim('Required. The GooglePlay password (or env var PLAYSTORE_PASSWORD)'))
     console.log(chalk.cyan('   --cookies [file_path]  '), chalk.dim('Optional. path to save sessions'))
     console.log(chalk.cyan('   --devtools             '), chalk.dim('Optional. Shows Chromium during process. Also, prevents exiting at the end'))
+    console.log(chalk.cyan('   --silent               '), chalk.dim('Optional. Prints only response from cli commands'))
     console.log()
     console.log()
     console.log(chalk.white(' :: PlayStore CLI Command List ::'))
@@ -36,10 +37,15 @@ async function run() {
                 chalk.yellow('--metadata=<json_or_folder>'))
     console.log(  chalk.dim('   Shows compiled information from metadata'))
     console.log()
+    console.log(chalk.cyan(` $ playstore app-version `),
+                chalk.yellow('--track=<prod*|beta|alpha>'),
+                chalk.yellow('<package_name>'))
+    console.log(  chalk.dim('   Prints the latest version of Production Lane'))
+    console.log()
     console.log()
   } else {
     let command = argv._[0]
-    let commands = ['publish', 'list', 'info', 'metadata', 'cleanup']
+    let commands = ['publish', 'list', 'info', 'metadata', 'cleanup', 'app-version']
 
     if (!commands.includes(command)) {
       console.log()
@@ -50,12 +56,12 @@ async function run() {
     }
 
     let start = Date.now()
-    console.log(chalk.bold(`playstore ${command}`))
+    !argv.silent && console.log(chalk.bold(`playstore ${command}`))
 
     // Call command
-    console.log()
+    !argv.silent && console.log()
     let res = await require('./' + command)(argv)
-    console.log()
+    !argv.silent && console.log()
 
     if (res instanceof Error) {
       console.error(chalk.white('Failed:'), chalk.red(res.message))
@@ -63,7 +69,7 @@ async function run() {
     }
     
     let total = Math.round((Date.now() - start) / 10) / 100
-    console.log(chalk.bold(`Done in ${total}s.`))
+    !argv.silent && console.log(chalk.bold(`Done in ${total}s.`))
 
     if (res instanceof Error) {
       process.exit(1)
