@@ -21,7 +21,7 @@ module.exports = async (self, app, metadata) => {
 
     // Images
     icon: null,
-    promoGraphic: null,
+    featureGraphic: null,
     phoneScreenshots: [],
   })
 

@@ -62,7 +62,7 @@ module.exports = async (pathOrJson) => {
 
       let dirImages = path.join(dir, 'images')
       metadata.icon = await loadFilePathByMatch(dirImages, 'icon.*', null)
-      metadata.promoGraphic = await loadFilePathByMatch(dirImages, 'promoGraphic.*', null)
+      metadata.featureGraphic = await loadFilePathByMatch(dirImages, 'featureGraphic.*', null)
       metadata.phoneScreenshots = await loadFilePathsOrDefault(dirImages, 'phoneScreenshots', [])
 
       // Avoids multiple languages
@@ -70,6 +70,7 @@ module.exports = async (pathOrJson) => {
     }
 
     metadata.apk = await loadFilePathByMatch(rootDir, '*.apk', null)
+    metadata.package_name = await loadTextOrDefault(rootDir, 'package-name.txt')
   }
 
   if (!metadata) {
@@ -98,7 +99,7 @@ module.exports = async (pathOrJson) => {
     'title', 'video', 'fullDescription', 'shortDescription',
     'contactEmail', 'contactPhone', 'contactWebsite',
     'privacyUrl',
-    'icon', 'promoGraphic'
+    'icon', 'featureGraphic'
   ]
   for (let key of mustBeSet) {
     if (!metadata[key]) {
@@ -149,7 +150,7 @@ module.exports = async (pathOrJson) => {
   //   // Images
   //   icon: path.join(__dirname, 'tests/icon.png'),
   //   // icon: path.join(__dirname, 'screenshot_run_1.png'),
-  //   promoGraphic: path.join(__dirname, 'tests/promoGraphic.png'),
+  //   featureGraphic: path.join(__dirname, 'tests/featureGraphic.png'),
   //   phoneScreenshots: [
   //     path.join(__dirname, 'tests/screenshot.png'),
   //     path.join(__dirname, 'tests/screenshot.png'),

@@ -40,7 +40,7 @@ async function run() {
     // Images
     icon: path.join(__dirname, 'tests/icon.png'),
     // icon: path.join(__dirname, 'screenshot_run_1.png'),
-    promoGraphic: path.join(__dirname, 'tests/promoGraphic.png'),
+    featureGraphic: path.join(__dirname, 'tests/featureGraphic.png'),
     phoneScreenshots: [
       path.join(__dirname, 'tests/screenshot.png'),
       path.join(__dirname, 'tests/screenshot.png'),
