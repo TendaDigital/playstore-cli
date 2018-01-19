@@ -17,9 +17,13 @@ module.exports = async (self, app, metadata) => {
   await page.goto(`${self.PlayURL}#ManageReleasesPlace:p=${app.package_name}`)
   await sleep(2000)
 
-  // Manage specified Lane
-  const $MANAGE_BETA ='section > div:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div > button'
-  await Pupt.click(page, $MANAGE_BETA)
+  // Manage production lane
+  let manageVersion = await Pupt.$byText(page, 'gerenciar produção')
+  if(manageVersion) {
+    await manageVersion.click()
+  } else {
+    throw new Error('Could not open Production lane')
+  }
 
   // Finds one to edit
   let editVersion = await Pupt.$byText(page, 'editar versão')
@@ -51,13 +55,14 @@ module.exports = async (self, app, metadata) => {
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
-  console.log(tag, chalk.green('!!!!!!!! YAYYYY !!!!!!! (didnt clicked, but went ok :D'))
+  console.log(tag, chalk.green('!!!!!!!! YAYYYY !!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
-  // if (!await Pupt.click(page, confirm)) {
-    // throw new Error('App could not be published because confirmation didnt succeeded')
-  // }
+  
+  if (!await Pupt.click(page, confirm)) {
+    throw new Error('App could not be published because confirmation didnt succeeded')
+  }
 
   console.log(tag, 'Done ')
 }

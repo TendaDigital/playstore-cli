@@ -41,10 +41,12 @@ module.exports = async (self, app, metadata) => {
   // 'section > div:nth-child(7) > div:nth-child(1) > div:nth-child(1) > div > button'
 
   // Manage specified Lane
-  console.log(tag, 'Opening Beta lane')
-  const $MANAGE_BETA ='section > div:nth-child(7) > div:nth-child(2) > div:nth-child(1) > div > button'
-  if (!await Pupt.click(page, $MANAGE_BETA)) {
-    throw new Error('Could not open Beta lane')
+  console.log(tag, 'Opening Production lane')
+  let manageVersion = await Pupt.$byText(page, 'gerenciar produção')
+  if(manageVersion) {
+    await manageVersion.click()
+  } else {
+    throw new Error('Could not open Production lane')
   }
 
   // Try Editing old one, or create new version
