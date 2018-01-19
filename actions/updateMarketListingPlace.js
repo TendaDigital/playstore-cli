@@ -7,14 +7,14 @@ module.exports = async (self, app, metadata) => {
 
   metadata = _.defaults(metadata, {
     language: 'pt-BR',
-    title: 'NAME',
-    fullDescription: 'DESCRIPTION',
-    shortDescription: 'SHORT_DESCRIPTION',
-    video: 'https://www.youtube.com/watch?v=_DUjtL4j4S8?PROMOCIONAL',
+    title: '', //'NAME',
+    fullDescription: '', //'DESCRIPTION',
+    shortDescription: '', //'SHORT_DESCRIPTION',
+    video: '',//https://www.youtube.com/watch?v=_DUjtL4j4S8?PROMOCIONAL',
     // Details
-    contactWebsite: 'http://CONTATO.SITE.COM',
-    contactEmail: 'CONTATO@EMAIL.COM',
-    contactPhone: '+55 11 999999999',
+    contactWebsite: '', //http://CONTATO.SITE.COM',
+    contactEmail: '', //'CONTATO@EMAIL.COM',
+    contactPhone: '', //'+55 11 999999999',
 
     // Privacy
     privacyUrl: 'http://PRIVACY.COM/URL-HERE',
