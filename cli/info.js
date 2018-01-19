@@ -32,7 +32,8 @@ module.exports = async (opts) => {
   let appInfo = await play.getApp(pkg)
 
   if (!appInfo) {
-    return new Error('Could not find package: ' + pkg)
+    console.log('Not found')
+    return
   }
 
   let apps = [appInfo]
