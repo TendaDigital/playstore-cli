@@ -16,6 +16,9 @@ module.exports = async (opts) => {
     email: opts.email,
     password: opts.password,
     cookieFile: opts.cookies || path.join(__dirname, '/.cookies'),
+
+    // Silent mode
+    silent: opts.silent,
   }
 
   // Create a new browser

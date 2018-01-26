@@ -2,7 +2,8 @@ const _ = require('lodash')
 const path = require('path')
 const puppeteer = require('puppeteer')
 
-const PlayApi = require('./play-api')
+const PlayApi = require('./index')
+const MetadataLoader = require('./helpers/MetadataLoader')
 
 async function run() {
 
@@ -21,34 +22,37 @@ async function run() {
   await play.init()
   await play.removeDrafts()
   
-  let metadata = {
-    package_name: 'com.test.tendadigital.lol',
-    language: 'pt-BR',
-    title: 'Package Title WORKS',
-    fullDescription: 'FULL DESCRIPTION WORKS',
-    shortDescription: 'SHORT DESCRIPTION WORKS',
-    video: 'https://www.youtube.com/watch?v=_DUjtL4j4S8?WORKS',
+  // let metadata = {
+  //   package_name: 'com.test.tendadigital.lol',
+  //   language: 'pt-BR',
+  //   title: 'Package Title WORKS',
+  //   fullDescription: 'FULL DESCRIPTION WORKS',
+  //   shortDescription: 'SHORT DESCRIPTION WORKS',
+  //   video: 'https://www.youtube.com/watch?v=_DUjtL4j4S8?WORKS',
     
-    // Details
-    contactWebsite: 'http://CONTATO.SITE.WORKS.COM',
-    contactEmail: 'CONTATO@WORKS.COM',
-    contactPhone: '+55 11 999999999',
+  //   // Details
+  //   contactWebsite: 'http://CONTATO.SITE.WORKS.COM',
+  //   contactEmail: 'CONTATO@WORKS.COM',
+  //   contactPhone: '+55 11 999999999',
 
-    // Privacy
-    privacyUrl: 'http://PRIVACY.COM/WORKS',
+  //   // Privacy
+  //   privacyUrl: 'http://PRIVACY.COM/WORKS',
 
-    // Images
-    icon: path.join(__dirname, 'tests/icon.png'),
-    // icon: path.join(__dirname, 'screenshot_run_1.png'),
-    featureGraphic: path.join(__dirname, 'tests/featureGraphic.png'),
-    phoneScreenshots: [
-      path.join(__dirname, 'tests/screenshot.png'),
-      path.join(__dirname, 'tests/screenshot.png'),
-    ],
+  //   // Images
+  //   icon: path.join(__dirname, 'tests/icon.png'),
+  //   // icon: path.join(__dirname, 'screenshot_run_1.png'),
+  //   featureGraphic: path.join(__dirname, 'tests/featureGraphic.png'),
+  //   phoneScreenshots: [
+  //     path.join(__dirname, 'test/screenshot.png'),
+  //     path.join(__dirname, 'tests/screenshot.png'),
+  //   ],
 
-    // Apk
-    apk: path.join(__dirname, './tests/app.apk'),
-  }
+  //   // Apk
+  //   apk: path.join(__dirname, './tests/app.apk'),
+  // }
+
+  // Try loading as a path
+  let metadata = await MetadataLoader(path.join(__dirname, 'test-metadata'))
 
   let app = await play.create(metadata)
 
@@ -64,8 +68,8 @@ function handleError(e) {
   console.error('Fatal Error')
   console.error(e.stack)
 
-  console.error('Exiting.')
-  process.exit(1)
+  // console.error('Exiting.')
+  // process.exit(1)
 }
 
 // Call run
@@ -74,6 +78,6 @@ function handleError(e) {
     await run()
   } catch (e) {
     console.error(e.stack)
-    process.exit(1)
+    // process.exit(1)
   }
 })();

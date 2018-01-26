@@ -26,6 +26,9 @@ module.exports = async function (opts) {
     email: opts.email,
     password: opts.password,
     cookieFile: opts.cookies || path.join(process.cwd(), '/.cookies'),
+
+    // Silent mode
+    silent: opts.silent,
   }
 
   // Create a new browser

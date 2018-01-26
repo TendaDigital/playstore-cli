@@ -132,10 +132,12 @@ module.exports = async (self, app, metadata) => {
   let revise = await Pupt.$byText(page, 'revisar')
   if (revise) {
     // Wait save to finish
-    console.log(tag, 'Waiting to be saved...')
-    let id = await revise.getProperty('id')
-    id = String(id).replace('JSHandle:', '')
-    await page.waitForSelector(`#${id}:not([disabled])`)
+    // console.log(tag, 'Waiting to be saved...')
+    // let id = await revise.getProperty('aria-label')
+    // id = String(id).replace('JSHandle:', '')
+    // await page.waitForSelector(`#${id}:not([disabled])`)
+    
+    await sleep(5000)
 
     // Submit revision
     revise = await Pupt.$byText(page, 'revisar')
