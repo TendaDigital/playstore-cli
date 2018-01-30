@@ -96,7 +96,7 @@ module.exports = async (pathOrJson) => {
 
   let mustBeSet = [
     'package_name',
-    'title', 'video', 'fullDescription', 'shortDescription',
+    'title', 'fullDescription', 'shortDescription',
     'contactEmail', 'contactPhone', 'contactWebsite',
     'privacyUrl',
     'icon', 'featureGraphic'
