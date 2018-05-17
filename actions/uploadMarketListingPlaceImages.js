@@ -16,7 +16,7 @@ module.exports = async (self, app, metadata) => {
   await page.goto(`${self.PlayURL}#MarketListingPlace:p=${app.package_name}`)
 
   console.log(tag, 'Waiting to load')
-  const $BASE = 'section > div:nth-child(4) > div:nth-of-type(4) > div:nth-of-type(2)'
+  const $BASE = 'section > div:nth-child(3) > div:nth-of-type(4) > div:nth-of-type(2)'
   await page.waitForSelector($BASE)
   
   let types = ['icon', 'featureGraphic', 'phoneScreenshots']
@@ -42,7 +42,7 @@ module.exports = async (self, app, metadata) => {
  */
 async function uploadMarketListingPlaceImage(self, type, files) {
   const page = self.page
-  const BASE = 'section > div:nth-child(4) > div:nth-of-type(4) > div:nth-of-type(2)'
+  const BASE = 'section > div:nth-child(3) > div:nth-of-type(4) > div:nth-of-type(2)'
 
   const Types = {
     icon: {
