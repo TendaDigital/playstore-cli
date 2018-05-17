@@ -42,7 +42,7 @@ module.exports = async (self, app, metadata) => {
 
   // Manage specified Lane
   console.log(tag, 'Opening Production lane')
-  let manageVersion = await Pupt.$byText(page, 'gerenciar produção')
+  let manageVersion = await Pupt.$byText(page, 'gerenciar')
   if(manageVersion) {
     await manageVersion.click()
   } else {

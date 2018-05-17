@@ -18,7 +18,7 @@ module.exports = async (self, app, metadata) => {
   await sleep(2000)
 
   // Manage production lane
-  let manageVersion = await Pupt.$byText(page, 'gerenciar produção')
+  let manageVersion = await Pupt.$byText(page, 'gerenciar')
   if(manageVersion) {
     await manageVersion.click()
   } else {
