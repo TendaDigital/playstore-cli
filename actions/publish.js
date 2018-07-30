@@ -14,7 +14,7 @@ module.exports = async (self, app, metadata) => {
   // Click correct lane button
   console.log(tag, 'Opening releases page')
   await sleep(2000)
-  await page.goto(`${self.PlayURL}#ManageReleasesPlace:p=${app.package_name}`)
+  await page.goto(`${self.PlayURL}#ManageReleasesPlace:p=${app.package_name}&appid=${app.id}`)
   await sleep(2000)
 
   // Manage production lane
