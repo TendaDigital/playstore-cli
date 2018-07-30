@@ -28,10 +28,10 @@ module.exports = async (self, app, metadata) => {
   await Pupt.checkRadio(page, 'input[name="ads_supported"]', 1)
   
   // Agree to terms (1)
-  Pupt.check(page, 'fieldset > label:nth-child(2) > div > div input[type="checkbox"]')
+  Pupt.check(page, 'fieldset > label:nth-child(3) > div > div input[type="checkbox"]')
 
   // Agree to terms (2)
-  Pupt.check(page, 'fieldset > label:nth-child(3) > div > div input[type="checkbox"]')
+  Pupt.check(page, 'fieldset > label:nth-child(4) > div > div input[type="checkbox"]')
 
   console.log(tag, 'Saving...')
   await self.saveForm()
