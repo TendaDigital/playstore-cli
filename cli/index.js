@@ -18,6 +18,7 @@ async function run() {
     console.log(chalk.cyan('   --cookies [file_path]  '), chalk.dim('Optional. path to save sessions'))
     console.log(chalk.cyan('   --devtools             '), chalk.dim('Optional. Shows Chromium during process. Also, prevents exiting at the end'))
     console.log(chalk.cyan('   --silent               '), chalk.dim('Optional. Prints only response from cli commands'))
+    console.log(chalk.cyan('   --keepopen             '), chalk.dim('Optional. Does not close if an error occurs'))
     console.log()
     console.log()
     console.log(chalk.white(' :: PlayStore CLI Command List ::'))
@@ -77,7 +78,7 @@ async function run() {
     !argv.silent && console.log(chalk.bold(`Done in ${total}s.`))
 
     if (res instanceof Error) {
-      if (!argv.devtools) {
+      if (!argv.keepopen) {
         process.exit(1)
       }
     } else {
