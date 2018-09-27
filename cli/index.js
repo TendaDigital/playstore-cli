@@ -60,7 +60,12 @@ async function run() {
 
     // Call command
     !argv.silent && console.log()
-    let res = await require('./' + command)(argv)
+    let res;
+    try {
+      res = await require('./' + command)(argv)
+    } catch (e) {
+      res = e
+    }
     !argv.silent && console.log()
 
     if (res instanceof Error) {
@@ -72,7 +77,9 @@ async function run() {
     !argv.silent && console.log(chalk.bold(`Done in ${total}s.`))
 
     if (res instanceof Error) {
-      process.exit(1)
+      if (!argv.devtools) {
+        process.exit(1)
+      }
     } else {
       process.exit()
     }

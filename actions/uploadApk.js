@@ -86,8 +86,8 @@ module.exports = async (self, app, metadata) => {
 
     // Wait upload to complete
     const $UPLOAD_BOX = 'section > div:nth-child(4) > div > div:nth-child(1) > div > div:nth-child(2)'
-    const $LOADING = $UPLOAD_BOX + ' > div:nth-child(2)'
-    const $FAILED  = $UPLOAD_BOX + ' > div:nth-child(3)'
+    const $LOADING = $UPLOAD_BOX + ' > div:nth-child(3)'
+    const $FAILED  = $UPLOAD_BOX + ' > div:nth-child(4)'
     // const $BOX_SUCCESS = $UPLOAD_BOX + ' > div:nth-child(3)'
 
     // Wait upload to complete
