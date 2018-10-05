@@ -49,7 +49,7 @@ module.exports = async (self, app, metadata) => {
   }
 
   console.log(tag, 'Publishing 3/3')
-  await sleep(1000)
+  await sleep(2000)
   let confirm = await Pupt.$waitByText(page, 'confirmar')
 
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
