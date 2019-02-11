@@ -39,7 +39,7 @@ module.exports = async (self, app, metadata) => {
 
 
   // 'section > div:nth-child(7) > div:nth-child(1) > div:nth-child(1) > div > button'
-
+  
   // Manage specified Lane
   console.log(tag, 'Opening Production lane')
   let manageVersion = await Pupt.$byText(page, 'gerenciar')
@@ -63,7 +63,7 @@ module.exports = async (self, app, metadata) => {
   }
 
   // Accept PlayApp Signing
-  const $CONTINUE_PLAY_APP_SIGN = 'section > div > div > div:nth-child(2) > div:nth-child(3) > form > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)'
+  const $CONTINUE_PLAY_APP_SIGN = 'section > div > div > div:nth-child(2) > div:nth-child(3) > form > div:nth-child(4) > div:nth-child(1) > div:nth-child(1) > button:nth-child(1)'
   if (await Pupt.click(page, $CONTINUE_PLAY_APP_SIGN)) {
     console.log(tag, 'Adopting GooglePlay App Signing')
     const $COMPLETED_APP_SIGN = 'section > div:nth-child(4) > section > div > div > div'
