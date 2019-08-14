@@ -80,7 +80,7 @@ module.exports = class PlayApi {
     // Load cookies
     let cookies = await this.page.cookies()
     this.cookies = cookies.map(c => `${c.name}=${c.value}`).join('; ')
-    
+
     // Load Xsrf
     !this.config.silent && console.log(this.tag, 'Confirming Login (xsrf token)')
     this.xsrf = await GetXsrf(this.cookies)
@@ -111,7 +111,7 @@ module.exports = class PlayApi {
   }
 
     /*
-   * Load version code from 
+   * Load version code from
    */
   async getAppVersionName(package_name, track) {
     let res = await this.axios.post('/apps/publish/appreleases', {
@@ -151,7 +151,7 @@ module.exports = class PlayApi {
    */
   async create(metadata) {
     let tag = this.tag + ' ' + chalk.cyan(':create')
-    
+
     let title = (metadata && metadata.title) || ''
     let package_name = _.isString(metadata) ? metadata : metadata.package_name
 
@@ -163,10 +163,10 @@ module.exports = class PlayApi {
     let apps = await this.getApps()
 
     // Check by the app package_name or app name on drafts
-    let app = _.find(apps, {package_name}) || 
+    let app = _.find(apps, {package_name}) ||
               _.find(apps, {title: title, status: 'draft'}) ||
               _.find(apps, {title: package_name, status: 'draft'})
-    
+
     if (app && app.status != 'draft') {
       throw new Error(`App '${package_name}' already existis and is not in draft mode`)
     }
@@ -227,6 +227,10 @@ module.exports = class PlayApi {
       console.log(tag, 'Updating app', chalk.green('Classification'))
       await require('./actions/updateClassification')(this, app, metadata)
 
+      // --------------------- ContentCenterPlace
+      console.log(tag, 'Updating app', chalk.green('Content'))
+      await require('./actions/updateContent')(this, app, metadata)
+
       // --------------------- PublishPlace
       console.log(tag, chalk.green('Publishing app'))
       await require('./actions/publish')(this, app, metadata)
@@ -281,7 +285,7 @@ module.exports = class PlayApi {
   async preWaitForNotification() {
     const page = this.page
     const $NOTIFICATION = `div[data-notification-type]`
-    
+
     await page.evaluate(() => {
       let a = document.querySelector('div[data-notification-type]')
       a && a.removeAttribute('data-notification-type')
@@ -307,7 +311,7 @@ module.exports = class PlayApi {
   async saveForm() {
     const page = this.page
     const $SAVE = 'header > div > div > div > div > span > button:first-child'
-    
+
     // Clear notification (if any)
     await this.preWaitForNotification()
 

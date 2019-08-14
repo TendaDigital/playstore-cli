@@ -12,11 +12,6 @@ module.exports = async (self, app, metadata) => {
   await page.goto(`${self.PlayURL}#ContentRatingPlace:p=${app.package_name}`)
   await sleep(3000)
 
-  // if (continuar) {
-  //   await continuar.click()
-  //   await sleep(10000)
-  // }
-
   let continuar = await Pupt.$byText(page, 'continuar')
   let retomar = await Pupt.$byText(page, 'retomar', 'a')
   let comecar = await Pupt.$byText(page, 'começar')
@@ -53,7 +48,7 @@ module.exports = async (self, app, metadata) => {
   if (category) {
     await category.click()
   } else {
-    console.log(tag, chalk.green('Category already selected'), category) 
+    console.log(tag, chalk.green('Category already selected'), category)
   }
 
   // Filling "No" in everyone
@@ -132,12 +127,12 @@ module.exports = async (self, app, metadata) => {
   // let text = await el.getProperty('innerText')
 
   // if (text == 'Não') {
-  //   await 
+  //   await
   // }
   // let el = await Pupt.$byText(page, 'não', 'span.gwt-RadioButton')
   // if (!el) {
   //   console.error(tag, chalk.red('Could not find button #' + k))
-  //   return 
+  //   return
   // }
   // await el.click()
   // await sleep(100)
