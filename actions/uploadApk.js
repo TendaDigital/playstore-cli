@@ -33,23 +33,18 @@ module.exports = async (self, app, metadata) => {
   // await page.waitForSelector(laneSelector)
   // let el = (await page.$$(laneSelector))[laneSelectorIndex]
   // if (!el) throw new Error(`Could not find selector for lane`);
-  
+
   // console.log(tag, `Opening ${chalk.green(lane)} deployment`)
   // await el.click()
 
 
   // 'section > div:nth-child(7) > div:nth-child(1) > div:nth-child(1) > div > button'
-  
+
   // Manage specified Lane
   console.log(tag, 'Opening Production lane')
-  let manageVersion = await Pupt.$byText(page, 'gerenciar')
-  if(manageVersion) {
-    await manageVersion.click()
-  } else {
-    throw new Error('Could not open Production lane')
-  }
-  
-  await sleep(3000)
+  await Pupt.click(page, '[aria-label="Gerenciar produção"]')
+
+  await sleep(5000)
 
   // Try Editing old one, or create new version
   // const $EDIT_VERSION = 'section > div:nth-child(8) > div > button'
@@ -106,7 +101,7 @@ module.exports = async (self, app, metadata) => {
 
   // Fill in release notes
   await sleep(5000)
-  const $RELEASE_NOTES = 'section > div:nth-child(4) > div > div:nth-child(5) > div textarea'
+  const $RELEASE_NOTES = 'section > div:nth-child(4) > div > div:nth-child(6) > div > div:nth-child(2) > div:nth-child(2) > textarea'
   const NOTE = 'Initial version of ' + metadata.title
   await Pupt.fill(page, $RELEASE_NOTES, `<${metadata.language}>\r\n${NOTE}\r\n</${metadata.language}>`)
 
@@ -129,7 +124,7 @@ module.exports = async (self, app, metadata) => {
       // console.log(tag, chalk.red('Could not save!'))
       throw new Error('Could not save!')
     }
-  } 
+  }
 
   let revise = await Pupt.$byText(page, 'revisar')
   if (revise) {
@@ -138,7 +133,7 @@ module.exports = async (self, app, metadata) => {
     // let id = await revise.getProperty('aria-label')
     // id = String(id).replace('JSHandle:', '')
     // await page.waitForSelector(`#${id}:not([disabled])`)
-    
+
     await sleep(5000)
 
     // Submit revision

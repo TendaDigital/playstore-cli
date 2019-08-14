@@ -18,12 +18,7 @@ module.exports = async (self, app, metadata) => {
   await sleep(2000)
 
   // Manage production lane
-  let manageVersion = await Pupt.$byText(page, 'gerenciar')
-  if(manageVersion) {
-    await manageVersion.click()
-  } else {
-    throw new Error('Could not open Production lane')
-  }
+  await Pupt.click(page, '[aria-label="Gerenciar produção"]')
 
   // Finds one to edit
   let editVersion = await Pupt.$byText(page, 'editar versão')
@@ -59,7 +54,7 @@ module.exports = async (self, app, metadata) => {
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
   console.log(tag, chalk.green('!!!!!!!!!!!!!!!!!!!!!!!'))
-  
+
   if (!await Pupt.click(page, confirm)) {
     throw new Error('App could not be published because confirmation didnt succeeded')
   }

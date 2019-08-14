@@ -10,7 +10,7 @@ exports.checkRadio = async (page, selector, index = 0) => {
     throw new Error(`Could not check Radio with selector '${selector}' at index #${index} `)
   }
   let checked = await page.$$eval(selector, (els, index) => els[index] && els[index].checked, index)
-  
+
   if (!checked) {
     await el.click()
   }
@@ -37,7 +37,7 @@ exports.fill = async (page, selector, value) => {
 
 /*
  * Checks if a given element is visible
- */ 
+ */
 exports.isVisible = async (page, selector) => {
   return await page.evaluate(function (selector) {
     let elem = typeof selector == 'string' ? document.querySelector(selector) : selector
@@ -115,7 +115,7 @@ exports.$byText = async (page, text, type = 'button', restriction = 'body') => {
   let el = await page.evaluateHandle((text, type, restriction) => {
     text = text || ''
     let rot = restriction ? document.querySelector(restriction) : document
-    
+
     if (!rot) {
       console.log('found nop:', text, type, null)
       return null
@@ -123,7 +123,7 @@ exports.$byText = async (page, text, type = 'button', restriction = 'body') => {
 
     let els = rot.querySelectorAll(type)
     // console.log('found len:', restriction, els.length)
-    
+
     for (let k in els) {
       let el = els[k]
       // Is visible and includes the text
